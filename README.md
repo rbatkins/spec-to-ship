@@ -82,6 +82,10 @@ The agent walks the ladder in `flow/`, producing a roadmap → epics → stories
 
 ---
 
+## Contributing
+
+Contributions are welcome via fork + pull request — and every change is reviewed and approved by the maintainer before it merges. `main` is protected; there is no direct push. See **[CONTRIBUTING.md](CONTRIBUTING.md)**.
+
 ## Credits & license
 
 Built on and grateful to **[gstack](https://github.com/garrytan/gstack)** (Garry Tan) and **[ponytail](https://github.com/DietrichGebert/ponytail)** (Dietrich Gebert). Full attributions in **[CREDITS.md](CREDITS.md)**.
