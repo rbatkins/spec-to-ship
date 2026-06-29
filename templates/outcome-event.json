@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "spec-to-ship outcome event",
-  "description": "Emitted once per story when the execution loop finishes it. This record IS the quality-per-dollar numerator. It is the interface consumed by Token-Efficiency, which joins it to token/$ usage by builder_model + time to compute quality per dollar. The numerator is the accepted OUTCOME, never lines of code.",
+  "description": "Emitted once per story when the execution loop finishes it. This record IS the quality-per-dollar numerator. It is a vendor-neutral interface: any cost/usage tracker can join it to token/$ usage by builder_model + time to compute quality per dollar (Token-Efficiency is the reference consumer, but nothing here depends on it). The numerator is the accepted OUTCOME, never lines of code.",
   "type": "object",
   "required": ["story_id", "accepted", "acceptance_criteria_passed", "acceptance_criteria_total", "review_verdict", "iterations", "builder_model", "finished_at"],
   "properties": {
