@@ -20,6 +20,9 @@
 
 - One PR per story, each passing its acceptance criteria, ponytail gate, and the review gate.
 - Update the sprint file with status per story (todo / in-progress / done) as the loop runs.
+- **Emit one [outcome event](../templates/outcome-event.json) per story** when it finishes — pass *or* fail. This record is the **quality-per-dollar numerator**: it captures whether the story was *accepted* (acceptance criteria + review gate both passed), how many *iterations* it took, and which *builder model* ran it. It is the interface [Token-Efficiency](https://github.com/rbatkins/Token-Efficiency) joins to your token/$ data. Append it to the outcome stream (e.g. `~/.tokentracker/outcomes.jsonl` or a sibling of the token queue) so the denominator side can pick it up.
+
+> The numerator counts **accepted outcomes, never lines of code** — see [`docs/measuring-quality.md`](../docs/measuring-quality.md). Record `net_loc_delta` only as an inverse diagnostic (less code for the same outcome = better); it must never drive the metric.
 
 ## Guardrails
 
