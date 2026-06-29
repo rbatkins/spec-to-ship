@@ -1,0 +1,22 @@
+# Local / environment
+.env
+.env.local
+*.local
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Logs / scratch
+*.log
+/scratch/
+/tmp/
+
+# Secrets — never commit keys
+*.key
+*secret*
+*token*
