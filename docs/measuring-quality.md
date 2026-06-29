@@ -39,11 +39,11 @@ $$\text{quality per dollar} = \frac{\text{accepted stories (outcome units)}}{\te
 
 Both axes feed one number. A better builder choice (cheaper cache *and* fewer iterations to pass) raises the numerator **and** lowers the denominator at once — which is why "token efficiency" and "quality" are not separate optimizations here. They're two hands on the same dial.
 
-## How it's computed (the split with Token-Efficiency)
+## How it's computed (numerator here, denominator anywhere)
 
 ```
-spec-to-ship                          Token-Efficiency
-─────────────                         ────────────────
+spec-to-ship                          any cost/usage tracker
+─────────────                         ──────────────────────
 ladder → stories (acceptance crit.)   token / $ rows (real usage)
 gate (ponytail + reviewers)
    │                                          │
@@ -51,7 +51,7 @@ gate (ponytail + reviewers)
         NUMERATOR: accepted outcomes          DENOMINATOR: effective $
 ```
 
-spec-to-ship owns the numerator (this repo). Token-Efficiency owns the denominator (your tokens) and computes the ratio, **per builder model**, so a routing decision shows up directly as a quality-per-dollar delta. See [`flow/5-sprint-execute.md`](../flow/5-sprint-execute.md) for where the outcome event is emitted.
+spec-to-ship owns the **numerator** (this repo) and emits it as a **vendor-neutral** [outcome event](../templates/outcome-event.json). The **denominator** lives in whatever tracks your token/$ usage — it joins the outcome stream by model + time and computes the ratio **per builder model**, so a routing decision shows up directly as a quality-per-dollar delta. [Token-Efficiency](https://github.com/rbatkins/Token-Efficiency) is the reference consumer, but any tracker works and the loop depends on none of them. See [`flow/5-sprint-execute.md`](../flow/5-sprint-execute.md) for where the event is emitted.
 
 ## Effective Tokens (ET)
 
