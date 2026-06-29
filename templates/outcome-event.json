@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "spec-to-ship outcome event",
+  "description": "Emitted once per story when the execution loop finishes it. This record IS the quality-per-dollar numerator. It is the interface consumed by Token-Efficiency, which joins it to token/$ usage by builder_model + time to compute quality per dollar. The numerator is the accepted OUTCOME, never lines of code.",
+  "type": "object",
+  "required": ["story_id", "accepted", "acceptance_criteria_passed", "acceptance_criteria_total", "review_verdict", "iterations", "builder_model", "finished_at"],
+  "properties": {
+    "story_id": { "type": "string", "description": "Stable id of the story (Stage 4)." },
+    "epic": { "type": "string", "description": "Parent epic id." },
+    "roadmap_outcome": { "type": "string", "description": "Parent roadmap milestone id — the value this traces to (the Goodhart guard)." },
+
+    "accepted": { "type": "boolean", "description": "True only if acceptance criteria passed AND the review gate passed. This is the unit counted in the numerator." },
+    "acceptance_criteria_passed": { "type": "integer", "minimum": 0 },
+    "acceptance_criteria_total": { "type": "integer", "minimum": 0 },
+    "review_verdict": { "type": "string", "enum": ["passed", "failed", "passed_with_notes"], "description": "Outcome of the adversarial review gate (Codex/Grok/Claude)." },
+    "security_sensitive": { "type": "boolean", "description": "If true, the FULL review gate was required (set at Stage 4)." },
+
+    "iterations": { "type": "integer", "minimum": 1, "description": "build->gate loops to pass. The rework multiplier — high values mean low Effective-Token fraction." },
+    "builder_model": { "type": "string", "description": "e.g. minimax-m3, kimi-k2.7-code, glm-5.2, deepseek-v4-pro. The join key to token/$ data." },
+    "reviewer_models": { "type": "array", "items": { "type": "string" }, "description": "e.g. [codex, grok, claude]." },
+
+    "net_loc_delta": { "type": "integer", "description": "DIAGNOSTIC ONLY — never the numerator. Read INVERSELY: less code for the same accepted outcome is better. Negative (code removed) that still passes is a quality win." },
+    "ponytail_simplified": { "type": "boolean", "description": "Did the ponytail gate remove bloat / argue code away on this story?" },
+
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": "string", "format": "date-time" }
+  },
+  "examples": [
+    {
+      "story_id": "S3",
+      "epic": "E2",
+      "roadmap_outcome": "M2",
+      "accepted": true,
+      "acceptance_criteria_passed": 3,
+      "acceptance_criteria_total": 3,
+      "review_verdict": "passed",
+      "security_sensitive": false,
+      "iterations": 2,
+      "builder_model": "minimax-m3",
+      "reviewer_models": ["codex", "grok", "claude"],
+      "net_loc_delta": -40,
+      "ponytail_simplified": true,
+      "started_at": "2026-06-29T18:00:00.000Z",
+      "finished_at": "2026-06-29T18:41:00.000Z"
+    }
+  ]
+}

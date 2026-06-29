@@ -64,6 +64,7 @@ The agent walks the ladder in `flow/`, producing a roadmap → epics → stories
 | `flow/` | The five-stage runbook the agent follows (first-principles → sprint execution) |
 | `docs/the-loop.md` | The loop explained, stage by stage |
 | `docs/models-and-quality-gate.md` | The build/review split, the model matrix, and where ponytail hooks in |
+| `docs/measuring-quality.md` | What "quality" means here — accepted outcomes, **not** lines of code — and the quality-per-dollar metric |
 | `docs/gotchas.md` | Hard-won lessons that save you hours (Windows, embeddings, Droid CLI, …) |
 | `examples/todo-app/` | One idea taken idea → roadmap → epics → stories → sprint, so you see the shape |
 | `templates/` | Blank roadmap / epic / story / sprint templates to copy |
