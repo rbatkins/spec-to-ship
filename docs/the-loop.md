@@ -43,7 +43,7 @@ Stories batch into a **sprint** — the unit you hand to the execution loop. Kee
 ## 6. Autonomous execution — `gstack` sprint / goal-loop
 Each story is handed to gstack's sprint/goal-loop conductor running on an autonomous build agent. The conductor drives **build → review → QA → commit/PR**, iterating against an objective verification gate until the story's acceptance criteria pass. *(gstack, + your build agent.)*
 
-The **quality gate** lives *inside* the build leg: see [`models-and-quality-gate.md`](models-and-quality-gate.md).
+The **quality gate** lives *inside* the build leg: see [`models-and-quality-gate.md`](models-and-quality-gate.md). For the multi-model conductor that runs the roles as separate reliable dispatches (so a single mission process can't stall), and the one gate the author never delegates — **design-conformance** — see [`build-pipeline.md`](build-pipeline.md).
 
 ---
 
