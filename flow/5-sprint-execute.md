@@ -9,12 +9,14 @@
 1. Group ready stories into a **coherent sprint** (related stories so context carries). Use [`templates/sprint.md`](../templates/sprint.md).
 2. For each story, dispatch the gstack execution conductor on your build agent. The per-story loop is:
    ```
-   build  ──▶  ponytail gate (inside build)  ──▶  review  ──▶  QA  ──▶  commit/PR
-     ▲                                                              │
-     └──────────────── iterate until acceptance criteria pass ──────┘
+   build ─▶ ponytail gate (inside build) ─▶ validate ─▶ frontier gate ─▶ author: design-conformance + merge
+     ▲                                          │
+     └──────── iterate until acceptance criteria pass ────┘
    ```
-3. **Builder ≠ reviewer.** Cheap open-weight model builds; frontier models (Codex / Grok / Claude) review adversarially. Security-flagged stories (from Stage 4) **must** go through the full review gate — non-negotiable.
-4. Hand off between agents via **git branches**, never the working tree.
+   To run the multi-model roles as separate reliable dispatches instead of one stall-prone mission process, use the conductor in [`docs/build-pipeline.md`](../docs/build-pipeline.md) ([`templates/pipeline.sh`](../templates/pipeline.sh)).
+3. **Builder ≠ reviewer, at every layer.** Cheap open-weight model builds; frontier models (Codex / Grok / Claude) review adversarially; the planner doesn't review its own plan. Security-flagged or architectural stories (from Stage 4) **must** go through the full gate — non-negotiable.
+4. **Design-conformance is the author's, and it's not optional.** After the review gate is green, the author diffs the build against the story and confirms it built *what was specified* — a clean code review doesn't prove that. Only then merge. See [`docs/build-pipeline.md`](../docs/build-pipeline.md#the-gate-the-author-keeps).
+5. Hand off between agents via **git branches**, never the working tree.
 
 ## Output
 
